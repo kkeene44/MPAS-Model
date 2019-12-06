@@ -152,7 +152,7 @@ CONTAINS
 
 !
       REAL,     DIMENSION( ims:ime, jms:jme )                    , &
-                INTENT(INOUT)               ::             REGIME, &
+                INTENT(OUT  )               ::             REGIME, &
                                                               HFX, &
                                                               QFX, &
                                                                LH, &
@@ -160,7 +160,7 @@ CONTAINS
 !m the following 5 are change to memory size
 !
       REAL,     DIMENSION( ims:ime, jms:jme )                    , &
-                INTENT(INOUT)   ::                 GZ1OZ0,WSPD,BR, &
+                INTENT(OUT  )   ::                 GZ1OZ0,WSPD,BR, &
                                                   PSIM,PSIH,FM,FH
 
       REAL,     DIMENSION( ims:ime, kms:kme, jms:jme )           , &
@@ -171,7 +171,7 @@ CONTAINS
                 INTENT(IN   )               ::               PSFC
 
       REAL,     DIMENSION( ims:ime, jms:jme )                    , &
-                INTENT(INOUT)   ::                            ZNT, &
+                INTENT(OUT  )   ::                            ZNT, &
                                                               ZOL, &
                                                               UST, &
                                                               CPM, &
@@ -180,11 +180,10 @@ CONTAINS
                                                               CHS
 
       REAL,     DIMENSION( ims:ime, jms:jme )                    , &
-                INTENT(INOUT)   ::                      FLHC,FLQC
+                INTENT(OUT  )   ::                      FLHC,FLQC
 
       REAL,     DIMENSION( ims:ime, jms:jme )                    , &
-                INTENT(INOUT)   ::                                 &
-                                                              QGH
+                INTENT(OUT  )   ::                            QGH
                                     
       REAL,     INTENT(IN   )               ::   CP,G,ROVCP,R,XLV
 
@@ -195,7 +194,7 @@ CONTAINS
                 INTENT(OUT)     ::                  ck,cka,cd,cda
 
       REAL, OPTIONAL, DIMENSION( ims:ime, jms:jme )              , &
-                INTENT(INOUT)   ::                           USTM
+                INTENT(OUT  )   ::                           USTM
 
       INTEGER,  OPTIONAL,  INTENT(IN )   ::     ISFTCFLX, IZ0TLND
       INTEGER,  OPTIONAL,  INTENT(IN )   ::     SCM_FORCE_FLUX
@@ -304,35 +303,42 @@ CONTAINS
                 INTENT(IN   )               ::             PSFCPA
 
       REAL,     DIMENSION( ims:ime )                             , &
-                INTENT(INOUT)               ::             REGIME, &
-                                                              HFX, &
+                INTENT(INOUT)               ::                HFX, &
                                                               QFX, &
-                                                         MOL,RMOL
+                                                              MOL
+      REAL,     DIMENSION( ims:ime )                             , &  
+                INTENT(OUT  )               ::             REGIME, &
+                                                             RMOL
 !m the following 5 are changed to memory size---
 !
       REAL,     DIMENSION( ims:ime )                             , &
-                INTENT(INOUT)   ::                 GZ1OZ0,WSPD,BR, &
+                INTENT(OUT  )   ::                 GZ1OZ0,WSPD,BR, &
                                                   PSIM,PSIH,FM,FH
 
       REAL,     DIMENSION( ims:ime )                             , &
                 INTENT(INOUT)   ::                            ZNT, &
-                                                              ZOL, &
-                                                              UST, &
+                                                              UST
+
+      REAL,     DIMENSION( ims:ime )                             , &
+                INTENT(OUT  )   ::                            ZOL, &
                                                               CPM, &
                                                              CHS2, &
                                                              CQS2, &
                                                               CHS
 
-      REAL,     DIMENSION( ims:ime )                             , &
-                INTENT(INOUT)   ::                      FLHC,FLQC
 
       REAL,     DIMENSION( ims:ime )                             , &
-                INTENT(INOUT)   ::                                 &
-                                                              QGH
+                INTENT(OUT  )   ::                      FLHC,FLQC
+
+      REAL,     DIMENSION( ims:ime )                             , &
+                INTENT(OUT  )   ::                            QGH
 
       REAL,     DIMENSION( ims:ime )                             , &
                 INTENT(OUT)     ::                        U10,V10, &
-                                                TH2,T2,Q2,QSFC,LH
+                                                     TH2,T2,Q2,LH
+  
+      REAL,     DIMENSION( ims:ime )                             , &
+                INTENT(INOUT)   ::                           QSFC
 
                                     
       REAL,     INTENT(IN   )               ::   CP,G,ROVCP,R,XLV
@@ -349,7 +355,7 @@ CONTAINS
                                                               T1D
  
       REAL, OPTIONAL, DIMENSION( ims:ime )                       , &
-                INTENT(OUT)     ::                  ck,cka,cd,cda
+                INTENT(INOUT)     ::                ck,cka,cd,cda
       REAL, OPTIONAL, DIMENSION( ims:ime )                       , &
                 INTENT(INOUT)   ::                           USTM
 
