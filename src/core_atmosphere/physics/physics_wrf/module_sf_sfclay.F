@@ -2,6 +2,10 @@
 !
 MODULE module_sf_sfclay
 
+ PUBLIC :: sfclay
+ PUBLIC :: sfclay1d
+ PUBLIC :: sfclayinit
+
  REAL    , PARAMETER ::  VCONVC=1.
  REAL    , PARAMETER ::  CZO=0.0185
  REAL    , PARAMETER ::  OZO=1.59E-5
