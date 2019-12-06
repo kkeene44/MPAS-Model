@@ -2,6 +2,8 @@
 !
 MODULE module_sf_sfclay
 
+ !USE ccpp_kinds, ONLY: kind_phys
+
  PUBLIC :: sfclay
  PUBLIC :: sfclay1d
  PUBLIC :: sfclayinit
