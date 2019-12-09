@@ -1121,6 +1121,36 @@ CONTAINS
 !                                                                                
    END SUBROUTINE SFCLAY1D
 
+!> \section arg_table_sf_sfclay_init  Argument Table
+!! \htmlinclude arg_table_sf_sfclay_init.html
+!!
+subroutine sf_sfclay_init (errmsg, errflg)
+
+    character(len=*),        intent(out)   :: errmsg
+    integer,                 intent(out)   :: errflg
+
+    ! This routine currently does nothing
+
+    errmsg = ''
+    errflg = 0
+
+  end subroutine sf_sfclay_init
+
+!> \section arg_table_sf_sfclay_finalize  Argument Table
+!! \htmlinclude arg_table_sf_sfclay_finalize.html
+!!
+  subroutine sf_sfclay_finalize (errmsg, errflg)
+
+    character(len=*),        intent(out)   :: errmsg
+    integer,                 intent(out)   :: errflg
+
+    ! This routine currently does nothing
+
+    errmsg = ''
+    errflg = 0
+
+  end subroutine sf_sfclay_finalize
+
 !====================================================================
    SUBROUTINE sfclayinit
 
