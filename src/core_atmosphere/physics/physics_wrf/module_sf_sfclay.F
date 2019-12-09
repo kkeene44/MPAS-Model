@@ -25,7 +25,7 @@ CONTAINS
                      U10,V10,TH2,T2,Q2,                            &
                      GZ1OZ0,WSPD,BR,ISFFLX,DX,                     &
                      SVP1,SVP2,SVP3,SVPT0,EP1,EP2,                 &
-                     KARMAN,EOMEG,STBOLT,                          &
+                     KARMAN,                                       &
                      P1000mb,                                      &
                      ids,ide, jds,jde, kds,kde,                    &
                      ims,ime, jms,jme, kms,kme,                    &
@@ -94,8 +94,6 @@ CONTAINS
 !-- EP2         constant for specific humidity calculation 
 !               (R_d/R_v) (dimensionless)
 !-- KARMAN      Von Karman constant
-!-- EOMEG       angular velocity of earth's rotation (rad/s)
-!-- STBOLT      Stefan-Boltzmann constant (W/m^2/K^4)
 !-- ck          enthalpy exchange coeff at 10 meters
 !-- cd          momentum exchange coeff at 10 meters
 !-- cka         enthalpy exchange coeff at the lowest model level
@@ -127,7 +125,7 @@ CONTAINS
 !                                                               
       INTEGER,  INTENT(IN )   ::        ISFFLX
       REAL,     INTENT(IN )   ::        SVP1,SVP2,SVP3,SVPT0
-      REAL,     INTENT(IN )   ::        EP1,EP2,KARMAN,EOMEG,STBOLT
+      REAL,     INTENT(IN )   ::        EP1,EP2,KARMAN
       REAL,     INTENT(IN )   ::        P1000mb
 !
       REAL,     DIMENSION( ims:ime, kms:kme, jms:jme )           , &
@@ -238,7 +236,7 @@ CONTAINS
         !  Sending array starting locations of optional variables may cause
         !  troubles, so we explicitly change the call.
 
-        CALL SFCLAY1D(J,U1D,V1D,T1D,QV1D,P1D,dz8w1d,               &
+        CALL SFCLAY1D(U1D,V1D,T1D,QV1D,P1D,dz8w1d,                 &
                 CP,G,ROVCP,R,XLV,PSFC(ims,j),CHS(ims,j),CHS2(ims,j),&
                 CQS2(ims,j),CPM(ims,j),PBLH(ims,j), RMOL(ims,j),   &
                 ZNT(ims,j),UST(ims,j),MAVAIL(ims,j),ZOL(ims,j),    &
@@ -249,7 +247,7 @@ CONTAINS
                 Q2(ims,j),FLHC(ims,j),FLQC(ims,j),QGH(ims,j),      &
                 QSFC(ims,j),LH(ims,j),                             &
                 GZ1OZ0(ims,j),WSPD(ims,j),BR(ims,j),ISFFLX,DX2D,   &
-                SVP1,SVP2,SVP3,SVPT0,EP1,EP2,KARMAN,EOMEG,STBOLT,  &
+                SVP1,SVP2,SVP3,SVPT0,EP1,EP2,KARMAN,               &
                 P1000mb,                                           &
                 ids,ide, jds,jde, kds,kde,                         &
                 ims,ime, jms,jme, kms,kme,                         &
@@ -271,14 +269,14 @@ CONTAINS
  !> \section arg_table_sf_sfclay_run  Argument Table
 !! \htmlinclude arg_table_sf_sfclay_run.html
 !! 
-   SUBROUTINE SFCLAY1D(J,UX,VX,T1D,QV1D,P1D,dz8w1d,                &
+   SUBROUTINE SFCLAY1D(UX,VX,T1D,QV1D,P1D,dz8w1d,                  &
                      CP,G,ROVCP,R,XLV,PSFCPA,CHS,CHS2,CQS2,CPM,PBLH,RMOL, &
                      ZNT,UST,MAVAIL,ZOL,MOL,REGIME,PSIM,PSIH,FM,FH,&
                      XLAND,HFX,QFX,TSK,                            &
                      U10,V10,TH2,T2,Q2,FLHC,FLQC,QGH,              &
                      QSFC,LH,GZ1OZ0,WSPD,BR,ISFFLX,DX,             &
                      SVP1,SVP2,SVP3,SVPT0,EP1,EP2,                 &
-                     KARMAN,EOMEG,STBOLT,                          &
+                     KARMAN,                                       &
                      P1000mb,                                      &
                      ids,ide, jds,jde, kds,kde,                    &
                      ims,ime, jms,jme, kms,kme,                    &
@@ -294,12 +292,11 @@ CONTAINS
 
       INTEGER,  INTENT(IN )   ::        ids,ide, jds,jde, kds,kde, &
                                         ims,ime, jms,jme, kms,kme, &
-                                        its,ite, jts,jte, kts,kte, &
-                                        J
+                                        its,ite, jts,jte, kts,kte
 !                                                               
       INTEGER,  INTENT(IN )   ::        ISFFLX
       REAL,     INTENT(IN )   ::        SVP1,SVP2,SVP3,SVPT0
-      REAL,     INTENT(IN )   ::        EP1,EP2,KARMAN,EOMEG,STBOLT
+      REAL,     INTENT(IN )   ::        EP1,EP2,KARMAN
       REAL,     INTENT(IN )   ::        P1000mb
 
 !
