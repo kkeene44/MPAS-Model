@@ -1116,6 +1116,8 @@ CONTAINS
 !     ENDDO
 !jdf
 
+ errmsg = 'sf_sfclay_run OK'
+ errflg = 0
 !                                                                                
    END SUBROUTINE SFCLAY1D
 
