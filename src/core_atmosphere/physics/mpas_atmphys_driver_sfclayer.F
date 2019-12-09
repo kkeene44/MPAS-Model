@@ -810,7 +810,8 @@
  end subroutine init_sfclayer
 
 !=================================================================================================================
- subroutine driver_sfclayer(itimestep,configs,mesh,diag_physics,sfc_input,its,ite)
+ subroutine driver_sfclayer(itimestep,configs,mesh,diag_physics,sfc_input,its,ite, &
+                            errmsg,errflg)
 !=================================================================================================================
 
 !input and inout arguments:
@@ -823,6 +824,10 @@
 
 !inout arguments:
  type(mpas_pool_type),intent(inout):: diag_physics
+
+!out arguments:
+ character(len=*), intent(out):: errmsg
+ integer,          intent(out):: errflg
 
 !local pointers:
  logical,pointer:: config_do_restart,config_frac_seaice
@@ -878,6 +883,7 @@
                    ustm     = ustm_p     , ck       = ck_p       , cka      = cka_p      , &
                    cd       = cd_p       , cda      = cda_p      , isftcflx = isftcflx   , &
                    iz0tlnd  = iz0tlnd    , scm_force_flux = scm_force_flux               , &
+                   errmsg   = errmsg     , errflg   = errflg                             , &
                    ids = ids , ide = ide , jds = jds , jde = jde , kds = kds , kde = kde , &
                    ims = ims , ime = ime , jms = jms , jme = jme , kms = kms , kme = kme , &
                    its = its , ite = ite , jts = jts , jte = jte , kts = kts , kte = kte   &
@@ -907,6 +913,7 @@
                       ustm     = ustm_sea   , ck       = ck_sea     , cka      = cka_sea    , &
                       cd       = cd_sea     , cda      = cda_sea    , isftcflx = isftcflx   , &
                       iz0tlnd  = iz0tlnd    , scm_force_flux = scm_force_flux               , &
+                      errmsg   = errmsg     , errflg   = errflg                             , &
                       ids = ids , ide = ide , jds = jds , jde = jde , kds = kds , kde = kde , &
                       ims = ims , ime = ime , jms = jms , jme = jme , kms = kms , kme = kme , &
                       its = its , ite = ite , jts = jts , jte = jte , kts = kts , kte = kte   &

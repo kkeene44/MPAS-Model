@@ -30,7 +30,8 @@ CONTAINS
                      ids,ide, jds,jde, kds,kde,                    &
                      ims,ime, jms,jme, kms,kme,                    &
                      its,ite, jts,jte, kts,kte,                    &
-                     ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,scm_force_flux           )
+                     ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,scm_force_flux,   &
+                     errmsg,errflg           )
 !-------------------------------------------------------------------
       IMPLICIT NONE
 !-------------------------------------------------------------------
@@ -198,6 +199,10 @@ CONTAINS
 
       INTEGER,  OPTIONAL,  INTENT(IN )   ::     ISFTCFLX, IZ0TLND
       INTEGER,  OPTIONAL,  INTENT(IN )   ::     SCM_FORCE_FLUX
+
+      CHARACTER(LEN=*), INTENT(OUT  ) ::                   errmsg
+      INTEGER,          INTENT(OUT  ) ::                   errflg
+
 ! LOCAL VARS
 
       REAL,     DIMENSION( its:ite ) ::                       U1D, &
@@ -248,7 +253,8 @@ CONTAINS
                 P1000mb,                                           &
                 ids,ide, jds,jde, kds,kde,                         &
                 ims,ime, jms,jme, kms,kme,                         &
-                its,ite, jts,jte, kts,kte                          &
+                its,ite, jts,jte, kts,kte,                         &
+                errmsg,errflg                                      &
 #if ( EM_CORE == 1 )
                 ,isftcflx,iz0tlnd,scm_force_flux,                  &
                 USTM(ims,j),CK(ims,j),CKA(ims,j),                  &
@@ -274,6 +280,7 @@ CONTAINS
                      ids,ide, jds,jde, kds,kde,                    &
                      ims,ime, jms,jme, kms,kme,                    &
                      its,ite, jts,jte, kts,kte,                    &
+                     errmsg,errflg,                                &
                      isftcflx, iz0tlnd,scm_force_flux,             &
                      ustm,ck,cka,cd,cda                            )
 !-------------------------------------------------------------------
@@ -344,6 +351,9 @@ CONTAINS
       REAL,     INTENT(IN   )               ::   CP,G,ROVCP,R,XLV
 
       REAL,     DIMENSION( its:ite ),  INTENT(IN   )   ::      DX
+
+      CHARACTER(LEN=*), INTENT(OUT  ) ::                   errmsg
+      INTEGER,          INTENT(OUT  ) ::                   errflg
 
 ! MODULE-LOCAL VARIABLES, DEFINED IN SUBROUTINE SFCLAY
       REAL,     DIMENSION( its:ite ),  INTENT(IN   )   ::  dz8w1d
