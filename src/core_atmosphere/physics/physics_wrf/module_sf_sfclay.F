@@ -268,6 +268,9 @@ CONTAINS
 
 
 !-------------------------------------------------------------------
+ !> \section arg_table_sf_sfclay_run  Argument Table
+!! \htmlinclude arg_table_sf_sfclay_run.html
+!! 
    SUBROUTINE SFCLAY1D(J,UX,VX,T1D,QV1D,P1D,dz8w1d,                &
                      CP,G,ROVCP,R,XLV,PSFCPA,CHS,CHS2,CQS2,CPM,PBLH,RMOL, &
                      ZNT,UST,MAVAIL,ZOL,MOL,REGIME,PSIM,PSIH,FM,FH,&
