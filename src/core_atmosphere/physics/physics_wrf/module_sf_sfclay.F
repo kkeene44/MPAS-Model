@@ -300,33 +300,31 @@ CONTAINS
       REAL,     INTENT(IN )   ::        P1000mb
 
 !
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(IN   )               ::             MAVAIL, &
                                                              PBLH, &
                                                             XLAND, &
                                                               TSK
 !
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(IN   )               ::             PSFCPA
 
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(INOUT)               ::                HFX, &
                                                               QFX, &
                                                               MOL
-      REAL,     DIMENSION( ims:ime )                             , &  
+      REAL,     DIMENSION( its:ite )                             , &  
                 INTENT(OUT  )               ::             REGIME, &
                                                              RMOL
-!m the following 5 are changed to memory size---
-!
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(OUT  )   ::                 GZ1OZ0,WSPD,BR, &
                                                   PSIM,PSIH,FM,FH
 
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(INOUT)   ::                            ZNT, &
                                                               UST
 
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(OUT  )   ::                            ZOL, &
                                                               CPM, &
                                                              CHS2, &
@@ -334,17 +332,17 @@ CONTAINS
                                                               CHS
 
 
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(OUT  )   ::                      FLHC,FLQC
 
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(OUT  )   ::                            QGH
 
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(OUT)     ::                        U10,V10, &
                                                      TH2,T2,Q2,LH
   
-      REAL,     DIMENSION( ims:ime )                             , &
+      REAL,     DIMENSION( its:ite )                             , &
                 INTENT(INOUT)   ::                           QSFC
 
                                     
@@ -364,9 +362,9 @@ CONTAINS
                                                               P1D, &
                                                               T1D
  
-      REAL, OPTIONAL, DIMENSION( ims:ime )                       , &
+      REAL, OPTIONAL, DIMENSION( its:ite )                       , &
                 INTENT(INOUT)     ::                ck,cka,cd,cda
-      REAL, OPTIONAL, DIMENSION( ims:ime )                       , &
+      REAL, OPTIONAL, DIMENSION( its:ite )                       , &
                 INTENT(INOUT)   ::                           USTM
 
       INTEGER,  OPTIONAL,  INTENT(IN )   ::     ISFTCFLX, IZ0TLND
