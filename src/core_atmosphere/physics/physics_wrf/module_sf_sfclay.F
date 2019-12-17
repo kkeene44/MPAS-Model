@@ -215,6 +215,50 @@ CONTAINS
 
       INTEGER ::  I,J
 
+!  Local tile-sized arrays for contiguous data for sf_sfclay_run call.
+
+   real,                   dimension(its:ite)      ::     psfc_hv, &
+                                                           chs_hv, &
+                                                          chs2_hv, &
+                                                          cqs2_hv, &
+                                                           cpm_hv, &
+                                                          pblh_hv, &
+                                                          rmol_hv, &
+                                                           znt_hv, &
+                                                           ust_hv, &
+                                                        mavail_hv, &
+                                                           zol_hv, &
+                                                           mol_hv, &
+                                                        regime_hv, &
+                                                          psim_hv, &
+                                                          psih_hv, &
+                                                            fm_hv, &
+                                                            fh_hv, &
+                                                         xland_hv, &
+                                                           hfx_hv, &
+                                                           qfx_hv, &
+                                                           tsk_hv, &
+                                                           u10_hv, &
+                                                           v10_hv, &
+                                                           th2_hv, &
+                                                            t2_hv, &
+                                                            q2_hv, &
+                                                          flhc_hv, &
+                                                          flqc_hv, &
+                                                           qgh_hv, &
+                                                          qsfc_hv, &
+                                                            lh_hv, &
+                                                        gz1oz0_hv, &
+                                                          wspd_hv, &
+                                                            br_hv, &
+                                                          ustm_hv, &
+                                                            ck_hv, &
+                                                           cka_hv, &
+                                                            cd_hv, &
+                                                           cda_hv
+ 
+ !  Assign input data to local tile-sized arrays.
+
       DO J=jts,jte
 
         DO i=its,ite
@@ -232,33 +276,116 @@ CONTAINS
            P1D(i) =P3D(i,1,j)
            T1D(i) =T3D(i,1,j)
         ENDDO
+ 
+        do i = its, ite
+           psfc_hv(i) = psfc(i,j)
+           chs_hv(i) = chs(i,j)
+           chs2_hv(i) = chs2(i,j)
+           cqs2_hv(i) = cqs2(i,j)
+           cpm_hv(i) = cpm(i,j)
+           pblh_hv(i) = pblh(i,j)
+           rmol_hv(i) = rmol(i,j)
+           znt_hv(i) = znt(i,j)
+           ust_hv(i) = ust(i,j)
+           mavail_hv(i) = mavail(i,j)
+           zol_hv(i) = zol(i,j)
+           mol_hv(i) = mol(i,j)
+           regime_hv(i) = regime(i,j)
+           psim_hv(i) = psim(i,j)
+           psih_hv(i) = psih(i,j)
+           fm_hv(i) = fm(i,j)
+           fh_hv(i) = fh(i,j)
+           xland_hv(i) = xland(i,j)
+           hfx_hv(i) = hfx(i,j)
+           qfx_hv(i) = qfx(i,j)
+           tsk_hv(i) = tsk(i,j)
+           u10_hv(i) = u10(i,j)
+           v10_hv(i) = v10(i,j)
+           th2_hv(i) = th2(i,j)
+           t2_hv(i) = t2(i,j)
+           q2_hv(i) = q2(i,j)
+           flhc_hv(i) = flhc(i,j)
+           flqc_hv(i) = flqc(i,j)
+           qgh_hv(i) = qgh(i,j)
+           qsfc_hv(i) = qsfc(i,j)
+           lh_hv(i) = lh(i,j)
+           gz1oz0_hv(i) = gz1oz0(i,j)
+           wspd_hv(i) = wspd(i,j)
+           br_hv(i) = br(i,j)
+           ustm_hv(i) = ustm(i,j)
+           ck_hv(i) = ck(i,j)
+           cka_hv(i) = cka(i,j)
+           cd_hv(i) = cd(i,j)
+           cda_hv(i) = cda(i,j)
+        end do
 
         !  Sending array starting locations of optional variables may cause
         !  troubles, so we explicitly change the call.
 
-        CALL SFCLAY1D(U1D,V1D,T1D,QV1D,P1D,dz8w1d,                 &
-                CP,G,ROVCP,R,XLV,PSFC(ims,j),CHS(ims,j),CHS2(ims,j),&
-                CQS2(ims,j),CPM(ims,j),PBLH(ims,j), RMOL(ims,j),   &
-                ZNT(ims,j),UST(ims,j),MAVAIL(ims,j),ZOL(ims,j),    &
-                MOL(ims,j),REGIME(ims,j),PSIM(ims,j),PSIH(ims,j),  &
-                FM(ims,j),FH(ims,j),                               &
-                XLAND(ims,j),HFX(ims,j),QFX(ims,j),TSK(ims,j),     &
-                U10(ims,j),V10(ims,j),TH2(ims,j),T2(ims,j),        &
-                Q2(ims,j),FLHC(ims,j),FLQC(ims,j),QGH(ims,j),      &
-                QSFC(ims,j),LH(ims,j),                             &
-                GZ1OZ0(ims,j),WSPD(ims,j),BR(ims,j),ISFFLX,DX2D,   &
-                SVP1,SVP2,SVP3,SVPT0,EP1,EP2,KARMAN,               &
-                P1000mb,                                           &
-                ids,ide, jds,jde, kds,kde,                         &
-                ims,ime, jms,jme, kms,kme,                         &
-                its,ite, jts,jte, kts,kte,                         &
-                errmsg,errflg                                      &
+        CALL SFCLAY1D(U1D,V1D,T1D=t1d,QV1D=qv1d,P1D=p1d,dz8w1d=dz8w1d,                  &
+                CP=cp,G=g,ROVCP=rovcp,R=r,XLV=xlv,psfcpa=psfc_hv,CHS=chs_hv,CHS2=chs2_hv, &
+                CQS2=cqs2_hv,CPM=cpm_hv,PBLH=pblh_hv,RMOL=rmol_hv,                      &
+                ZNT=znt_hv,UST=ust_hv,MAVAIL=mavail_hv,ZOL=zol_hv,                      &
+                MOL=mol_hv,REGIME=regime_hv,PSIM=psim_hv,PSIH=psih_hv,                  &
+                FM=fm_hv,FH=fh_hv,                                                      &
+                XLAND=xland_hv,HFX=hfx_hv,QFX=qfx_hv,TSK=tsk_hv,                        &
+                U10=u10_hv,V10=v10_hv,TH2=th2_hv,T2=t2_hv,                              &
+                Q2=q2_hv,FLHC=flhc_hv,FLQC=flqc_hv,QGH=qgh_hv,                          &
+                QSFC=qsfc_hv,LH=lh_hv,                                                  &
+                GZ1OZ0=gz1oz0_hv,WSPD=wspd_hv,BR=br_hv,ISFFLX=isfflx,DX=dx2d,         &
+                SVP1=svp1,SVP2=svp2,SVP3=svp3,SVPT0=svpt0,EP1=ep1,EP2=ep2,KARMAN=karman,&
+                P1000mb=p1000mb,                                                        &
+                ids=ids,ide=ide, jds=jds,jde=jde, kds=kds,kde=kde,                      &
+                ims=ims,ime=ime, jms=jms,jme=jme, kms=kms,kme=kme,                      &
+                its=its,ite=ite, jts=jts,jte=jte, kts=kts,kte=kte,                      &
+                errmsg=errmsg,errflg=errflg                                             &
 #if ( EM_CORE == 1 )
-                ,isftcflx,iz0tlnd,scm_force_flux,                  &
-                USTM(ims,j),CK(ims,j),CKA(ims,j),                  &
-                CD(ims,j),CDA(ims,j)                               &
+                ,isftcflx=isftcflx,iz0tlnd=iz0tlnd,scm_force_flux=scm_force_flux,       &
+                USTM=ustm_hv,CK=ck_hv,CKA=cka_hv,                                       &
+                CD=cd_hv,CDA=cda_hv                                                     &
 #endif
-                                                                   )
+                     ) 
+
+ !  Assign local data back to full-sized arrays.
+      !  Only required for the INTENT(OUT) or INTENT(INOUT) arrays.
+
+        do i = its, ite
+           chs(i,j) = chs_hv(i)
+           chs2(i,j) = chs2_hv(i)
+           cqs2(i,j) = cqs2_hv(i)
+           cpm(i,j) = cpm_hv(i)
+           rmol(i,j) = rmol_hv(i)
+           znt(i,j) = znt_hv(i)
+           ust(i,j) = ust_hv(i)
+           zol(i,j) = zol_hv(i)
+           mol(i,j) = mol_hv(i)
+           regime(i,j) = regime_hv(i)
+           psim(i,j) = psim_hv(i)
+           psih(i,j) = psih_hv(i)
+           fm(i,j) = fm_hv(i)
+           fh(i,j) = fh_hv(i)
+           hfx(i,j) = hfx_hv(i)
+           qfx(i,j) = qfx_hv(i)
+           u10(i,j) = u10_hv(i)
+           v10(i,j) = v10_hv(i)
+           th2(i,j) = th2_hv(i)
+           t2(i,j) = t2_hv(i)
+           q2(i,j) = q2_hv(i)
+           flhc(i,j) = flhc_hv(i)
+           flqc(i,j) = flqc_hv(i)
+           qgh(i,j) = qgh_hv(i)
+           qsfc(i,j) = qsfc_hv(i)
+           lh(i,j) = lh_hv(i)
+           gz1oz0(i,j) = gz1oz0_hv(i)
+           wspd(i,j) = wspd_hv(i)
+           br(i,j) = br_hv(i)
+           ustm(i,j) = ustm_hv(i)
+           ck(i,j) = ck_hv(i)
+           cka(i,j) = cka_hv(i)
+           cd(i,j) = cd_hv(i)
+           cda(i,j) = cda_hv(i)
+        end do
+
       ENDDO
 
 
