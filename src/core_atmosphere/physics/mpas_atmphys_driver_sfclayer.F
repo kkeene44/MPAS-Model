@@ -65,7 +65,7 @@
 ! * modified sourcecode to use pools.
 !   Laura D. Fowler (laura@ucar.edu) / 2014-05-15.
 ! * added initialization of local logical "allowed_to read" in subroutine init_sfclayer. This logical
-!   is actually not used in subroutine sfclayinit.
+!   is actually not used in subroutine sf_sfclay_init.
 !   Laura D. Fowler (laura@ucar.edu) / 2014-09-25. 
 ! * renamed "monin_obukhov" with "sf_monin_obukhov".
 !   Laura D. Fowler (laura@ucar.edu) / 2016-03-25.
@@ -788,8 +788,10 @@
  type(mpas_pool_type),intent(in):: configs
 
 !local variables and pointers:
- logical, parameter:: allowed_to_read = .false. !actually not used in subroutine sfclayinit.
+ logical, parameter:: allowed_to_read = .false. !actually not used in subroutine sf_sfclay_init.
  character(len=StrKIND),pointer:: sfclayer_scheme
+ character(len=1024)           :: errmsg
+    integer                 :: errflg
 
 !-----------------------------------------------------------------------------------------------------------------
 
@@ -798,7 +800,7 @@
  sfclayer_select: select case (trim(sfclayer_scheme))
 
     case("sf_monin_obukhov")
-       call sfclayinit
+       call sf_sfclay_init (errmsg, errflg)
 
     case("sf_mynn")
        call mynn_sf_init_driver(allowed_to_read)

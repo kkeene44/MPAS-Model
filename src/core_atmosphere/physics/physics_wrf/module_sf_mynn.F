@@ -56,7 +56,7 @@ MODULE module_sf_mynn
 #if defined(mpas)
  use mpas_atmphys_constants,only: p1000mb => P0,cp,xlv,ep_2
  use module_bl_mynn,only: tv0,mym_condensation
- use module_sf_sfclay,only: sfclayinit
+ use module_sf_sfclay,only: sf_sfclay_init
 
  implicit none
  private
@@ -67,7 +67,7 @@ MODULE module_sf_mynn
   USE module_model_constants, only: &
        &p1000mb, cp, xlv, ep_2
 
-  USE module_sf_sfclay, ONLY: sfclayinit
+  USE module_sf_sfclay, ONLY: sf_sfclay_init
   USE module_bl_mynn,   only: tv0, mym_condensation
   USE module_wrf_error
 !-------------------------------------------------------------------
@@ -89,12 +89,14 @@ CONTAINS
   SUBROUTINE mynn_sf_init_driver(allowed_to_read)
 
     LOGICAL, INTENT(in) :: allowed_to_read
+    character(len=1024)           :: errmsg
+    integer                    :: errflg
 
-    !Fill the PSIM and PSIH tables. The subroutine "sfclayinit" 
+    !Fill the PSIM and PSIH tables. The subroutine "sf_sfclay_init" 
     !can be found in module_sf_sfclay.F. This subroutine returns
     !the forms from Dyer and Hicks (1974).
        
-    CALL sfclayinit
+    CALL sf_sfclay_init ( errmsg, errflg )
 
   END SUBROUTINE mynn_sf_init_driver
 

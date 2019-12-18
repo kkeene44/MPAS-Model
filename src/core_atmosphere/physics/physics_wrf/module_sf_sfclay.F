@@ -6,7 +6,7 @@ MODULE module_sf_sfclay
 
  PUBLIC :: sfclay
  PUBLIC :: sfclay1d
- PUBLIC :: sfclayinit
+ PUBLIC :: sf_sfclay_init
 
  REAL    , PARAMETER ::  VCONVC=1.
  REAL    , PARAMETER ::  CZO=0.0185
@@ -1249,15 +1249,29 @@ CONTAINS
 !> \section arg_table_sf_sfclay_init  Argument Table
 !! \htmlinclude arg_table_sf_sfclay_init.html
 !!
-subroutine sf_sfclay_init (errmsg, errflg)
+subroutine sf_sfclay_init ( errmsg, errflg )
 
+    integer                   ::      N
+    real                      ::      zolf
     character(len=*),        intent(out)   :: errmsg
     integer,                 intent(out)   :: errflg
-
-    ! This routine currently does nothing
-
+    
     errmsg = ''
     errflg = 0
+    
+    DO N=0,1000
+! stable function tables
+       zolf = float(n)*0.01
+       psim_stab(n)=psim_stable_full(zolf)
+       psih_stab(n)=psih_stable_full(zolf)
+
+! unstable function tables
+       zolf = -float(n)*0.01
+       psim_unstab(n)=psim_unstable_full(zolf)
+       psih_unstab(n)=psih_unstable_full(zolf)
+
+    ENDDO
+
 
   end subroutine sf_sfclay_init
 
@@ -1277,25 +1291,6 @@ subroutine sf_sfclay_init (errmsg, errflg)
   end subroutine sf_sfclay_finalize
 
 !====================================================================
-   SUBROUTINE sfclayinit
-
-    INTEGER                   ::      N
-    REAL                      ::      zolf
-
-    DO N=0,1000
-! stable function tables
-       zolf = float(n)*0.01
-       psim_stab(n)=psim_stable_full(zolf)
-       psih_stab(n)=psih_stable_full(zolf)
- 
-! unstable function tables
-       zolf = -float(n)*0.01
-       psim_unstab(n)=psim_unstable_full(zolf)
-       psih_unstab(n)=psih_unstable_full(zolf)
-
-    ENDDO
-
-   END SUBROUTINE sfclayinit
 
       function zolri(ri,z,z0)
 !
