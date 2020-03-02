@@ -156,7 +156,7 @@ CONTAINS
                                                               QFX, &
                                                                LH, &
                                                           MOL,RMOL
-!m the following 5 are change to memory size
+! the following 5 are change to memory size
 !
       REAL,     DIMENSION( ims:ime, jms:jme )                    , &
                 INTENT(OUT  )   ::                 GZ1OZ0,WSPD,BR, &
@@ -530,13 +530,7 @@ CONTAINS
       REAL    ::  DTG,PSIX,DTTHX,PSIX10,PSIT,PSIT2,PSIQ,PSIQ2,PSIQ10
       REAL    ::  FLUXC,VSGD,Z0Q,VISC,RESTAR,CZIL,GZ0OZQ,GZ0OZT
       REAL    ::  ZW, ZN1, ZN2
-!
-! .... paj ...
-!
       REAL    :: zolzz,zol0
-!     REAL    :: zolri,zolri2
-!     REAL    :: psih_stable,psim_stable,psih_unstable,psim_unstable
-!     REAL    :: psih_stable_full,psim_stable_full,psih_unstable_full,psim_unstable_full
       REAL    :: zl2,zl10,z0t
       REAL,     DIMENSION( its:ite )        ::         pq,pq2,pq10
 
@@ -554,7 +548,6 @@ CONTAINS
       DO 5 I=its,ite                                   
         TGDSA(I)=TSK(I)                                    
 ! PSFC cb
-!        THGB(I)=TSK(I)*(100./PSFC(I))**ROVCP                
         THGB(I)=TSK(I)*(P1000mb/PSFCPA(I))**ROVCP   
     5 CONTINUE                                               
 !                                                            
@@ -568,10 +561,6 @@ CONTAINS
 !                                                           
    10 CONTINUE                                                     
 
-!     DO 24 I=its,ite
-!        UX(I)=U1D(I)
-!        VX(I)=V1D(I)
-!  24 CONTINUE                                             
                                                              
    26 CONTINUE                                               
                                                    
@@ -582,7 +571,6 @@ CONTAINS
 ! PL cb
          PL=P1D(I)/1000.
          SCR3(I)=T1D(I)                                                   
-!         THCON=(100./PL)**ROVCP                                                 
          THCON=(P1000mb*0.001/PL)**ROVCP
          THX(I)=SCR3(I)*THCON                                               
          SCR4(I)=SCR3(I)                                                    
@@ -597,7 +585,6 @@ CONTAINS
          CPM(I)=CP                                                                
       ENDDO
 !                                                                                
-!     IF(IDRY.EQ.1)GOTO 80                                                   
       DO 50 I=its,ite
          QX(I)=QV1D(I)                                                    
          TVCON=(1.+EP1*QX(I))                                      
@@ -610,7 +597,6 @@ CONTAINS
 !  for land points QSFC can come from previous time step
         if(xland(i).gt.1.5.or.qsfc(i).le.0.0)QSFC(I)=EP2*E1/(PSFC(I)-E1)                                                 
 ! QGH CHANGED TO USE LOWEST-LEVEL AIR TEMP CONSISTENT WITH MYJSFC CHANGE
-! Q2SAT = QGH IN LSM
         E1=SVP1*EXP(SVP2*(T1D(I)-SVPT0)/(T1D(I)-SVP3))                       
         PL=P1D(I)/1000.
         QGH(I)=EP2*E1/(PL-E1)                                                 
@@ -658,7 +644,6 @@ CONTAINS
 !  following Beljaars (1994, QJRMS) and Mahrt and Sun (1995, MWR)
 !                                ... HONG Aug. 2001
 !
-!       VCONV = 0.25*sqrt(g/tskv*pblh(i)*dthvm)
 !      Use Beljaars over land, old MM5 (Wyngaard) formula over water
         if (xland(i).lt.1.5) then
         fluxc = max(hfx(i)/rhox(i)/cp                    &
@@ -670,7 +655,6 @@ CONTAINS
         ELSE
           DTHVM=0.
         ENDIF
-!       VCONV = 2.*SQRT(DTHVM)
 ! V3.7: reducing contribution in calm conditions
         VCONV = SQRT(DTHVM)
         endif
@@ -681,9 +665,7 @@ CONTAINS
         BR(I)=GOVRTH(I)*ZA(I)*DTHVDZ/(WSPD(I)*WSPD(I))                        
 !  IF PREVIOUSLY UNSTABLE, DO NOT LET INTO REGIMES 1 AND 2
         IF(MOL(I).LT.0.)BR(I)=AMIN1(BR(I),0.0)
-!jdf
         RMOL(I)=-GOVRTH(I)*DTHVDZ*ZA(I)*KARMAN
-!jdf
 
   260 CONTINUE                                                                   
 
@@ -841,7 +823,6 @@ CONTAINS
 
 !     LOWER LIMIT ADDED TO PREVENT LARGE FLHC IN SOIL MODEL
 !     ACTIVATES IN UNSTABLE CONDITIONS WITH THIN LAYERS OR HIGH Z0
-!       PSIT=AMAX1(GZ1OZ0(I)-PSIH(I),2.)
        PSIT=GZ1OZ0(I)-PSIH(I)
        PSIT2=GZ2OZ0(I)-PSIH2(I)
 !
@@ -919,11 +900,6 @@ CONTAINS
 
         IF ( PRESENT(ISFTCFLX) ) THEN
            IF ( ISFTCFLX.EQ.1 .AND. (XLAND(I)-1.5).GE.0. ) THEN
-! v3.1
-!             Z0Q = 1.e-4 + 1.e-3*(MAX(0.,UST(I)-1.))**2
-! hfip1
-!             Z0Q = 0.62*2.0E-5/UST(I) + 1.E-3*(MAX(0.,UST(I)-1.5))**2
-! v3.2
               Z0Q = 1.e-4
 !
 ! ... paj: recompute psih for z0q
@@ -962,7 +938,6 @@ CONTAINS
 ! GZ0OZT and GZ0OZQ are based off formulas from Brutsaert (1975), which
 ! Garratt (1992) used with values of k = 0.40, Pr = 0.71, and Sc = 0.60
               VISC=(1.32+0.009*(SCR3(I)-273.15))*1.E-5
-!!            VISC=1.5E-5
               RESTAR=UST(I)*ZNT(I)/VISC
               GZ0OZT=0.40*(7.3*SQRT(SQRT(RESTAR))*SQRT(0.71)-5.)
 !
@@ -991,8 +966,6 @@ CONTAINS
                 endif
               endif
 !
-!              PSIT=GZ1OZ0(I)-PSIH(I)+RESTAR2
-!              PSIT2=GZ2OZ0(I)-PSIH2(I)+RESTAR2
               PSIT=ALOG((ZA(I)+z0t)/Z0t)-PSIH(I)
               PSIT2=ALOG((2.+z0t)/Z0t)-PSIH2(I)
 !
@@ -1023,9 +996,6 @@ CONTAINS
               PSIQ=ALOG((ZA(I)+z0q)/Z0q)-PSIH(I)
               PSIQ2=ALOG((2.+z0q)/Z0q)-PSIH2(I)
               PSIQ10=ALOG((10.+z0q)/Z0q)-PSIH10(I)
-!              PSIQ=GZ1OZ0(I)-PSIH(I)+2.28*SQRT(SQRT(RESTAR))-2.
-!              PSIQ2=GZ2OZ0(I)-PSIH2(I)+2.28*SQRT(SQRT(RESTAR))-2.
-!              PSIQ10=GZ10OZ0(I)-PSIH(I)+2.28*SQRT(SQRT(RESTAR))-2.
            ENDIF
         ENDIF
         IF(PRESENT(ck) .and. PRESENT(cd) .and. PRESENT(cka) .and. PRESENT(cda)) THEN
@@ -1079,11 +1049,6 @@ CONTAINS
               PSIT=PSIQ
               PSIT2=PSIQ2
 !
-!              PSIT=GZ1OZ0(I)-PSIH(I)+CZIL*KARMAN*SQRT(RESTAR)
-!              PSIQ=GZ1OZ0(I)-PSIH(I)+CZIL*KARMAN*SQRT(RESTAR)
-!              PSIT2=GZ2OZ0(I)-PSIH2(I)+CZIL*KARMAN*SQRT(RESTAR)
-!              PSIQ2=GZ2OZ0(I)-PSIH2(I)+CZIL*KARMAN*SQRT(RESTAR)
-
            ENDIF
         ENDIF
 ! TO PREVENT OSCILLATIONS AVERAGE WITH OLD VALUE 
@@ -1129,23 +1094,13 @@ CONTAINS
                                                                                  
       DO 360 I=its,ite
         IF((XLAND(I)-1.5).GE.0)THEN                                            
-!         ZNT(I)=CZO*UST(I)*UST(I)/G+OZO                                   
 ! Since V3.7 (ref: EC Physics document for Cy36r1)
           ZNT(I)=CZO*UST(I)*UST(I)/G+0.11*1.5E-5/UST(I)
 ! V3.9: Add limit as in isftcflx = 1,2
           ZNT(I)=MIN(ZNT(I),2.85e-3)
-! COARE 3.5 (Edson et al. 2013)
-!         CZC = 0.0017*WSPD(I)-0.005
-!         CZC = min(CZC,0.028)
-!         ZNT(I)=CZC*UST(I)*UST(I)/G+0.11*1.5E-5/UST(I)
 ! AHW: change roughness length, and hence the drag coefficients Ck and Cd
           IF ( PRESENT(ISFTCFLX) ) THEN
              IF ( ISFTCFLX.NE.0 ) THEN
-!               ZNT(I)=10.*exp(-9.*UST(I)**(-.3333))
-!               ZNT(I)=10.*exp(-9.5*UST(I)**(-.3333))
-!               ZNT(I)=ZNT(I) + 0.11*1.5E-5/AMAX1(UST(I),0.01)
-!               ZNT(I)=0.011*UST(I)*UST(I)/G+OZO
-!               ZNT(I)=MAX(ZNT(I),3.50e-5)
 ! AHW 2012:
                 ZW  = MIN((UST(I)/1.06)**(0.3),1.0)
                 ZN1 = 0.011*UST(I)*UST(I)/G + OZO
@@ -1161,12 +1116,9 @@ CONTAINS
           ZL = 0.01
         ENDIF                                                                    
         FLQC(I)=RHOX(I)*MAVAIL(I)*UST(I)*KARMAN/DENOMQ(I)
-!       FLQC(I)=RHOX(I)*MAVAIL(I)*UST(I)*KARMAN/(   &
-!               ALOG(KARMAN*UST(I)*ZA(I)/XKA+ZA(I)/ZL)-PSIH(I))
         DTTHX=ABS(THX(I)-THGB(I))                                            
         IF(DTTHX.GT.1.E-5)THEN                                                   
           FLHC(I)=CPM(I)*RHOX(I)*UST(I)*MOL(I)/(THX(I)-THGB(I))          
-!         write(*,1001)FLHC(I),CPM(I),RHOX(I),UST(I),MOL(I),THX(I),THGB(I),I
  1001   format(f8.5,2x,f12.7,2x,f12.10,2x,f12.10,2x,f13.10,2x,f12.8,f12.8,2x,i3)
         ELSE                                                                     
           FLHC(I)=0.                                                             
@@ -1175,8 +1127,6 @@ CONTAINS
 
 !                                                                                
 !-----COMPUTE SURFACE MOIST FLUX:                                                
-!                                                                                
-!     IF(IDRY.EQ.1)GOTO 390                                                
 !                                                                                
      IF ( PRESENT(SCM_FORCE_FLUX) ) THEN
         IF (SCM_FORCE_FLUX.EQ.1) GOTO 405
@@ -1194,12 +1144,6 @@ CONTAINS
       DO 400 I=its,ite
         IF(XLAND(I)-1.5.GT.0.)THEN                                           
           HFX(I)=FLHC(I)*(THGB(I)-THX(I)) 
-!         IF ( PRESENT(ISFTCFLX) ) THEN
-!            IF ( ISFTCFLX.NE.0 ) THEN
-! AHW: add dissipative heating term (commented out in 3.6.1)
-!               HFX(I)=HFX(I)+RHOX(I)*USTM(I)*USTM(I)*WSPDI(I)
-!            ENDIF
-!         ENDIF 
         ELSEIF(XLAND(I)-1.5.LT.0.)THEN                                       
           HFX(I)=FLHC(I)*(THGB(I)-THX(I))                                
           HFX(I)=AMAX1(HFX(I),-250.)                                       
@@ -1214,32 +1158,12 @@ CONTAINS
          ELSE
            ZL=0.01
          ENDIF
-!v3.1.1
-!         CHS(I)=UST(I)*KARMAN/(ALOG(KARMAN*UST(I)*ZA(I) &
-!                /XKA+ZA(I)/ZL)-PSIH(I))
          CHS(I)=UST(I)*KARMAN/DENOMQ(I)
-!        GZ2OZ0(I)=ALOG(2./ZNT(I))
-!        PSIM2(I)=-10.*GZ2OZ0(I)
-!        PSIM2(I)=AMAX1(PSIM2(I),-10.)
-!        PSIH2(I)=PSIM2(I)
-! v3.1.1
-!         CQS2(I)=UST(I)*KARMAN/(ALOG(KARMAN*UST(I)*2.0  &
-!               /XKA+2.0/ZL)-PSIH2(I))
-!         CHS2(I)=UST(I)*KARMAN/(GZ2OZ0(I)-PSIH2(I))
          CQS2(I)=UST(I)*KARMAN/DENOMQ2(I)
          CHS2(I)=UST(I)*KARMAN/DENOMT2(I)
       ENDDO
                                                                         
   410 CONTINUE                                                                   
-!jdf
-!     DO I=its,ite
-!       IF(UST(I).GE.0.1) THEN
-!         RMOL(I)=RMOL(I)*(-FLHC(I))/(UST(I)*UST(I)*UST(I))
-!       ELSE
-!         RMOL(I)=RMOL(I)*(-FLHC(I))/(0.1*0.1*0.1)
-!       ENDIF
-!     ENDDO
-!jdf
 
  errmsg = 'sf_sfclay_run OK'
  errflg = 0
@@ -1436,9 +1360,4 @@ subroutine sf_sfclay_init ( errmsg, errflg )
 !-------------------------------------------------------------------          
 
 END MODULE module_sf_sfclay
-
-!
-! ----------------------------------------------------------
-!
-
 
