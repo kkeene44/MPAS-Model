@@ -579,9 +579,6 @@ CONTAINS
    30 CONTINUE                                                                 
 !                                                                                
       DO I=its,ite
-         QGH(I)=0.                                                                
-         FLHC(I)=0.                                                               
-         FLQC(I)=0.                                                               
          CPM(I)=CP                                                                
       ENDDO
 !                                                                                
