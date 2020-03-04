@@ -1,6 +1,6 @@
 !WRF:MODEL_LAYER:PHYSICS
 !
-MODULE module_sf_sfclay
+MODULE sf_sfclay
 
  !USE ccpp_kinds, ONLY: kind_phys
 
@@ -1356,5 +1356,5 @@ subroutine sf_sfclay_init ( errmsg, errflg )
 
 !-------------------------------------------------------------------          
 
-END MODULE module_sf_sfclay
+END MODULE sf_sfclay
 

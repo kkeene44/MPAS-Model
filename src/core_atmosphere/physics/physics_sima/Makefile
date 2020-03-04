@@ -7,6 +7,7 @@ dummy:
 
 OBJS = \
 	bl_ysu.o
+        sf_sfclay.o
 
 physics_sima: $(OBJS)
 	ar -ru ./../libphys.a $(OBJS)

@@ -16,7 +16,7 @@
 
 !wrf physics:
  use module_sf_mynn
- use module_sf_sfclay
+ use sf_sfclay
 
  implicit none
  private
@@ -46,7 +46,7 @@
 !
 ! WRF physics called from driver_sfclayer:
 ! ----------------------------------------
-! * module_sf_sfclay: Monin-Obukhov surface layer scheme.
+! * sf_sfclay: Monin-Obukhov surface layer scheme.
 !
 ! add-ons and modifications to sourcecode:
 ! ----------------------------------------

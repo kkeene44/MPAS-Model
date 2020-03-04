@@ -470,7 +470,7 @@
     znt_p,            &!time-varying roughness length                                                          [m]
     zol_p              !
 
-!... arrays only in monin_obukohv (module_sf_sfclay.F):
+!... arrays only in monin_obukohv (sf_sfclay.F):
  real(kind=RKIND),dimension(:,:),allocatable:: &
     fh_p,             &!integrated stability function for heat                                                 [-]
     fm_p               !integrated stability function for momentum                                             [-]

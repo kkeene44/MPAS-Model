@@ -37,7 +37,6 @@ OBJS = \
         module_sf_noah_seaice.o        \
         module_sf_noah_seaice_drv.o    \
 	module_sf_oml.o                \
-	module_sf_sfclay.o             \
 	module_sf_urban.o
 
 physics_wrf: $(OBJS)
@@ -76,7 +75,7 @@ module_sf_bep_bem.o: \
 
 module_sf_mynn.o: \
 	module_bl_mynn.o \
-	module_sf_sfclay.o
+	../physics_sima/sf_sfclay.o
 
 module_sf_noahdrv.o: \
 	module_sf_bem.o \
