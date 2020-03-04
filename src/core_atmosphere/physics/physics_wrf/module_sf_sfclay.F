@@ -5,7 +5,7 @@ MODULE module_sf_sfclay
  !USE ccpp_kinds, ONLY: kind_phys
 
  PUBLIC :: sfclay
- PUBLIC :: sfclay1d
+ PUBLIC :: sf_sfclay_run
  PUBLIC :: sf_sfclay_init
 
  REAL    , PARAMETER ::  VCONVC=1.
@@ -322,7 +322,7 @@ CONTAINS
         !  Sending array starting locations of optional variables may cause
         !  troubles, so we explicitly change the call.
 
-        CALL SFCLAY1D(U1D,V1D,T1D=t1d,QV1D=qv1d,P1D=p1d,dz8w1d=dz8w1d,                  &
+        CALL sf_sfclay_run(U1D,V1D,T1D=t1d,QV1D=qv1d,P1D=p1d,dz8w1d=dz8w1d,                  &
                 CP=cp,G=g,ROVCP=rovcp,R=r,XLV=xlv,psfcpa=psfc_hv,CHS=chs_hv,CHS2=chs2_hv, &
                 CQS2=cqs2_hv,CPM=cpm_hv,PBLH=pblh_hv,RMOL=rmol_hv,                      &
                 ZNT=znt_hv,UST=ust_hv,MAVAIL=mavail_hv,ZOL=zol_hv,                      &
@@ -396,7 +396,7 @@ CONTAINS
  !> \section arg_table_sf_sfclay_run  Argument Table
 !! \htmlinclude arg_table_sf_sfclay_run.html
 !! 
-   SUBROUTINE SFCLAY1D(UX,VX,T1D,QV1D,P1D,dz8w1d,                  &
+   SUBROUTINE sf_sfclay_run(UX,VX,T1D,QV1D,P1D,dz8w1d,                  &
                      CP,G,ROVCP,R,XLV,PSFCPA,CHS,CHS2,CQS2,CPM,PBLH,RMOL, &
                      ZNT,UST,MAVAIL,ZOL,MOL,REGIME,PSIM,PSIH,FM,FH,&
                      XLAND,HFX,QFX,TSK,                            &
@@ -1165,7 +1165,7 @@ CONTAINS
  errmsg = 'sf_sfclay_run OK'
  errflg = 0
 !                                                                                
-   END SUBROUTINE SFCLAY1D
+   END SUBROUTINE sf_sfclay_run 
 
 !> \section arg_table_sf_sfclay_init  Argument Table
 !! \htmlinclude arg_table_sf_sfclay_init.html
