@@ -886,9 +886,8 @@
                    cd       = cd_p       , cda      = cda_p      , isftcflx = isftcflx   , &
                    iz0tlnd  = iz0tlnd    , scm_force_flux = scm_force_flux               , &
                    errmsg   = errmsg     , errflg   = errflg                             , &
-                   ids = ids , ide = ide , jds = jds , jde = jde , kds = kds , kde = kde , &
                    ims = ims , ime = ime , jms = jms , jme = jme , kms = kms , kme = kme , &
-                   its = its , ite = ite , jts = jts , jte = jte , kts = kts , kte = kte   &
+                   its = its , ite = ite , jts = jts , jte = jte                           & 
                   )
 
        if(config_frac_seaice) then
@@ -916,9 +915,8 @@
                       cd       = cd_sea     , cda      = cda_sea    , isftcflx = isftcflx   , &
                       iz0tlnd  = iz0tlnd    , scm_force_flux = scm_force_flux               , &
                       errmsg   = errmsg     , errflg   = errflg                             , &
-                      ids = ids , ide = ide , jds = jds , jde = jde , kds = kds , kde = kde , &
                       ims = ims , ime = ime , jms = jms , jme = jme , kms = kms , kme = kme , &
-                      its = its , ite = ite , jts = jts , jte = jte , kts = kts , kte = kte   &
+                      its = its , ite = ite , jts = jts , jte = jte                           & 
                      )
        endif
        call mpas_timer_stop('Monin-Obukhov')

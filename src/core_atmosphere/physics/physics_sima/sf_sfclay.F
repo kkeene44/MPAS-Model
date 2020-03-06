@@ -27,9 +27,8 @@ CONTAINS
                      SVP1,SVP2,SVP3,SVPT0,EP1,EP2,                 &
                      KARMAN,                                       &
                      P1000mb,                                      &
-                     ids,ide, jds,jde, kds,kde,                    &
                      ims,ime, jms,jme, kms,kme,                    &
-                     its,ite, jts,jte, kts,kte,                    &
+                     its,ite, jts,jte,                             &
                      ustm,ck,cka,cd,cda,isftcflx,iz0tlnd,scm_force_flux,   &
                      errmsg,errflg           )
 !-------------------------------------------------------------------
@@ -100,12 +99,6 @@ CONTAINS
 !-- cda         momentum exchange coeff at the lowest model level
 !-- isftcflx    =0, (Charnock and Carlson-Boland); =1, AHW Ck, Cd, =2 Garratt
 !-- iz0tlnd     =0 Carlson-Boland, =1 Czil_new
-!-- ids         start index for i in domain
-!-- ide         end index for i in domain
-!-- jds         start index for j in domain
-!-- jde         end index for j in domain
-!-- kds         start index for k in domain
-!-- kde         end index for k in domain
 !-- ims         start index for i in memory
 !-- ime         end index for i in memory
 !-- jms         start index for j in memory
@@ -116,12 +109,9 @@ CONTAINS
 !-- ite         end index for i in tile
 !-- jts         start index for j in tile
 !-- jte         end index for j in tile
-!-- kts         start index for k in tile
-!-- kte         end index for k in tile
 !-------------------------------------------------------------------
-      INTEGER,  INTENT(IN )   ::        ids,ide, jds,jde, kds,kde, &
-                                        ims,ime, jms,jme, kms,kme, &
-                                        its,ite, jts,jte, kts,kte
+      INTEGER,  INTENT(IN )   ::        ims,ime, jms,jme, kms,kme, &
+                                        its,ite, jts,jte
 !                                                               
       INTEGER,  INTENT(IN )   ::        ISFFLX
       REAL,     INTENT(IN )   ::        SVP1,SVP2,SVP3,SVPT0
@@ -332,12 +322,10 @@ CONTAINS
                 U10=u10_hv,V10=v10_hv,TH2=th2_hv,T2=t2_hv,                              &
                 Q2=q2_hv,FLHC=flhc_hv,FLQC=flqc_hv,QGH=qgh_hv,                          &
                 QSFC=qsfc_hv,LH=lh_hv,                                                  &
-                GZ1OZ0=gz1oz0_hv,WSPD=wspd_hv,BR=br_hv,ISFFLX=isfflx,DX=dx2d,         &
+                GZ1OZ0=gz1oz0_hv,WSPD=wspd_hv,BR=br_hv,ISFFLX=isfflx,DX=dx2d,           &
                 SVP1=svp1,SVP2=svp2,SVP3=svp3,SVPT0=svpt0,EP1=ep1,EP2=ep2,KARMAN=karman,&
                 P1000mb=p1000mb,                                                        &
-                ids=ids,ide=ide, jds=jds,jde=jde, kds=kds,kde=kde,                      &
-                ims=ims,ime=ime, jms=jms,jme=jme, kms=kms,kme=kme,                      &
-                its=its,ite=ite, jts=jts,jte=jte, kts=kts,kte=kte,                      &
+                its=its,ite=ite,                                                        &
                 errmsg=errmsg,errflg=errflg                                             &
 #if ( EM_CORE == 1 )
                 ,isftcflx=isftcflx,iz0tlnd=iz0tlnd,scm_force_flux=scm_force_flux,       &
@@ -405,9 +393,7 @@ CONTAINS
                      SVP1,SVP2,SVP3,SVPT0,EP1,EP2,                 &
                      KARMAN,                                       &
                      P1000mb,                                      &
-                     ids,ide, jds,jde, kds,kde,                    &
-                     ims,ime, jms,jme, kms,kme,                    &
-                     its,ite, jts,jte, kts,kte,                    &
+                     its,ite,                                      &
                      errmsg,errflg,                                &
                      isftcflx, iz0tlnd,scm_force_flux,             &
                      ustm,ck,cka,cd,cda                            )
@@ -417,9 +403,7 @@ CONTAINS
       REAL,     PARAMETER     ::        XKA=2.4E-5
       REAL,     PARAMETER     ::        PRT=1.
 
-      INTEGER,  INTENT(IN )   ::        ids,ide, jds,jde, kds,kde, &
-                                        ims,ime, jms,jme, kms,kme, &
-                                        its,ite, jts,jte, kts,kte
+      INTEGER,  INTENT(IN )   ::        its,ite
 !                                                               
       INTEGER,  INTENT(IN )   ::        ISFFLX
       REAL,     INTENT(IN )   ::        SVP1,SVP2,SVP3,SVPT0
@@ -521,8 +505,6 @@ CONTAINS
       REAL,     DIMENSION( its:ite)         ::          SCR3,SCR4
       REAL,     DIMENSION( its:ite )        ::         THGB, PSFC
 !
-      INTEGER                               ::                 KL
-
       INTEGER ::  N,I,K,KK,L,NZOL,NK,NZOL2,NZOL10
 
       REAL    ::  PL,THCON,TVCON,E1
@@ -536,7 +518,6 @@ CONTAINS
 
 
 !-------------------------------------------------------------------
-      KL=kte
 
       DO i=its,ite
 ! PSFC cb
