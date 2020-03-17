@@ -7,11 +7,6 @@ USE sf_sfclay
 
  PUBLIC :: sfclay
 
- REAL    , PARAMETER ::  VCONVC=1.
- REAL    , PARAMETER ::  CZO=0.0185
- REAL    , PARAMETER ::  OZO=1.59E-5
-
- REAL,   DIMENSION(0:1000 ),SAVE :: psim_stab,psim_unstab,psih_stab,psih_unstab
 
 CONTAINS
 
@@ -312,7 +307,7 @@ CONTAINS
         !  Sending array starting locations of optional variables may cause
         !  troubles, so we explicitly change the call.
 
-        CALL sf_sfclay_run(U1D,V1D,T1D=t1d,QV1D=qv1d,P1D=p1d,dz8w1d=dz8w1d,                  &
+        CALL sf_sfclay_run(U1D=u1d,V1D=v1d,T1D=t1d,QV1D=qv1d,P1D=p1d,dz8w1d=dz8w1d,     &
                 CP=cp,G=g,ROVCP=rovcp,R=r,XLV=xlv,psfcpa=psfc_hv,CHS=chs_hv,CHS2=chs2_hv, &
                 CQS2=cqs2_hv,CPM=cpm_hv,PBLH=pblh_hv,RMOL=rmol_hv,                      &
                 ZNT=znt_hv,UST=ust_hv,MAVAIL=mavail_hv,ZOL=zol_hv,                      &

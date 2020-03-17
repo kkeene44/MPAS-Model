@@ -16,7 +16,7 @@
 
 !wrf physics:
  use module_sf_mynn
- use sf_sfclay
+ use module_sf_sfclay
 
  implicit none
  private
